@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="VKCLientTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-02-14T10:31:21" hostname="arimionim-ThinkPad" time="0.471">
+  <properties/>
+  <testcase name="shouldCallClientNTimes()" classname="VKCLientTests" time="0.444"/>
+  <testcase name="shouldReturnCorrectValue()" classname="VKCLientTests" time="0.011"/>
+  <testcase name="shouldSortValues()" classname="VKCLientTests" time="0.014"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
