@@ -1,5 +1,6 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
+import ru.akirakozov.sd.refactoring.HTMLBuilder;
 import ru.akirakozov.sd.refactoring.Model;
 
 import javax.servlet.http.HttpServlet;
@@ -23,19 +24,14 @@ public class QueryServlet extends HttpServlet {
         if ("max".equals(command)) {
             try {
                 ResultSet rs = model.getProductsOrderedByPlace(true);
-
-                response.getWriter().println("<html><body>");
-                response.getWriter().println("<h1>Product with max price: </h1>");
-
+                HTMLBuilder.buildHeader(response, "Product with max price: ", true);
                 while (rs.next()) {
                     String name = rs.getString("name");
                     int price = rs.getInt("price");
-                    response.getWriter().println(name + "\t" + price + "</br>");
+                    HTMLBuilder.addLine(response, name + "\t" + price);
                 }
-                response.getWriter().println("</body></html>");
 
                 rs.close();
-
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -43,16 +39,15 @@ public class QueryServlet extends HttpServlet {
             try {
                 ResultSet rs = model.getProductsOrderedByPlace(true);
 
-                response.getWriter().println("<html><body>");
-                response.getWriter().println("<h1>Product with min price: </h1>");
+                HTMLBuilder.buildHeader(response, "Product with min price: ", true);
 
                 while (rs.next()) {
                     String name = rs.getString("name");
                     int price = rs.getInt("price");
-                    response.getWriter().println(name + "\t" + price + "</br>");
+                    HTMLBuilder.addLine(response, name + "\t" + price);
                 }
-                response.getWriter().println("</body></html>");
 
+                HTMLBuilder.buildFooter(response);
                 rs.close();
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -60,13 +55,12 @@ public class QueryServlet extends HttpServlet {
         } else if ("sum".equals(command)) {
             try {
                 ResultSet rs = model.getSum();
-                response.getWriter().println("<html><body>");
-                response.getWriter().println("Summary price: ");
+                HTMLBuilder.buildHeader(response, "Summary price: ", false);
 
                 if (rs.next()) {
-                    response.getWriter().println(rs.getInt(1));
+                    HTMLBuilder.addLine(response, String.valueOf(rs.getInt(1)));
                 }
-                response.getWriter().println("</body></html>");
+                HTMLBuilder.buildFooter(response);
 
                 rs.close();
 
@@ -76,24 +70,22 @@ public class QueryServlet extends HttpServlet {
         } else if ("count".equals(command)) {
             try {
                 ResultSet rs = model.getCount();
-                response.getWriter().println("<html><body>");
-                response.getWriter().println("Number of products: ");
+                HTMLBuilder.buildHeader(response, "Number of products: ", false);
 
                 if (rs.next()) {
-                    response.getWriter().println(rs.getInt(1));
+                    HTMLBuilder.addLine(response, String.valueOf(rs.getInt(1)));
                 }
-                response.getWriter().println("</body></html>");
+                HTMLBuilder.buildFooter(response);
 
                 rs.close();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else {
-            response.getWriter().println("Unknown command: " + command);
+            HTMLBuilder.unknownCommand(response, command);
         }
 
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
+        HTMLBuilder.finishBuild(response);
     }
 
     private final Model model;
