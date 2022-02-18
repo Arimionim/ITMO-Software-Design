@@ -19,7 +19,7 @@ public class HTMLBuilder {
             if (header) {
                 response.getWriter().println("<h1>" + name + "</h1>");
             } else {
-                response.getWriter().println("<h1>" + name + "</h1>");
+                response.getWriter().println(name);
             }
         }
     }

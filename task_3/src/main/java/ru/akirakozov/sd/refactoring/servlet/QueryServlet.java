@@ -61,9 +61,7 @@ public class QueryServlet extends HttpServlet {
                     HTMLBuilder.addLine(response, String.valueOf(rs.getInt(1)));
                 }
                 HTMLBuilder.buildFooter(response);
-
                 rs.close();
-
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -76,7 +74,6 @@ public class QueryServlet extends HttpServlet {
                     HTMLBuilder.addLine(response, String.valueOf(rs.getInt(1)));
                 }
                 HTMLBuilder.buildFooter(response);
-
                 rs.close();
             } catch (Exception e) {
                 throw new RuntimeException(e);

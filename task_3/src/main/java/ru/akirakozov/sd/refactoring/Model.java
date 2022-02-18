@@ -4,15 +4,19 @@ import java.sql.*;
 
 public class Model {
     Model() {
+        this("test.db");
+    }
+
+    public Model(String file) {
         try {
-            c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            c = DriverManager.getConnection("jdbc:sqlite:" + file);
             init();
         } catch (SQLException e) {
             throw new RuntimeException("Can't connect to database with error: " + e.getMessage());
         }
     }
 
-    private void init() {
+    public void init() {
         String sql = "CREATE TABLE IF NOT EXISTS PRODUCT" +
                 "(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                 " NAME           TEXT    NOT NULL, " +
@@ -51,7 +55,7 @@ public class Model {
         return execQuerySQL("SELECT * FROM PRODUCT");
     }
 
-    private ResultSet execQuerySQL(String sql) {
+    public ResultSet execQuerySQL(String sql) {
         try {
             Statement stmt = c.createStatement();
             return stmt.executeQuery(sql);
@@ -60,7 +64,7 @@ public class Model {
         }
     }
 
-    private void execUpdateSQL(String sql) {
+    public void execUpdateSQL(String sql) {
         try {
             Statement stmt = c.createStatement();
             stmt.executeUpdate(sql);
