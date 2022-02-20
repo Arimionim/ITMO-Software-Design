@@ -1,11 +1,9 @@
 package ru.akirakozov.sd.refactoring.tests;
 
 import org.junit.jupiter.api.Test;
-import ru.akirakozov.sd.refactoring.Model;
 import ru.akirakozov.sd.refactoring.servlet.AddProductServlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;

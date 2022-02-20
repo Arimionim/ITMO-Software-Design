@@ -27,15 +27,17 @@ public class Model {
         execUpdateSQL(sql);
     }
 
-    public ResultSet getProductsOrderedByPlace(boolean desc) {
+    public List<Product> getProductsOrderedByPrice(boolean desc) throws SQLException {
         String sql;
         if (desc) {
             sql = "SELECT * FROM PRODUCT ORDER BY PRICE DESC LIMIT 1";
         } else {
             sql = "SELECT * FROM PRODUCT ORDER BY PRICE LIMIT 1";
         }
-
-        return execQuerySQL(sql);
+        ResultSet rs = execQuerySQL(sql);
+        List<Product> products = extractProducts(rs);
+        rs.close();
+        return products;
     }
 
     public void addProduct(String name, long price) {
@@ -45,24 +47,28 @@ public class Model {
         execUpdateSQL(sql);
     }
 
-    public ResultSet getSum() {
-        return execQuerySQL("SELECT SUM(price) FROM PRODUCT");
+    public int getSum() throws SQLException {
+        return execQuerySQL("SELECT SUM(price) FROM PRODUCT").getInt(0);
     }
 
-    public ResultSet getCount() {
-        return execQuerySQL("SELECT COUNT(*) FROM PRODUCT");
+    public int getCount() throws SQLException {
+        return execQuerySQL("SELECT COUNT(*) FROM PRODUCT").getInt(0);
     }
 
     public List<Product> getProducts() throws SQLException {
-        ArrayList<Product> products = new ArrayList<>();
         ResultSet rs = execQuerySQL("SELECT * FROM PRODUCT");
+        List<Product> products = extractProducts(rs);
+        rs.close();
+        return products;
+    }
 
+    private static List<Product> extractProducts(ResultSet rs) throws SQLException {
+        ArrayList<Product> products = new ArrayList<>();
         while (rs.next()) {
             String name = rs.getString("name");
             int price = rs.getInt("price");
             products.add(new Product(name, price));
         }
-        rs.close();
         return products;
     }
 
