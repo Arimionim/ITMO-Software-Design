@@ -1,6 +1,8 @@
 package ru.akirakozov.sd.refactoring;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Model {
     Model() {
@@ -51,8 +53,17 @@ public class Model {
         return execQuerySQL("SELECT COUNT(*) FROM PRODUCT");
     }
 
-    public ResultSet getProducts() {
-        return execQuerySQL("SELECT * FROM PRODUCT");
+    public List<Product> getProducts() throws SQLException {
+        ArrayList<Product> products = new ArrayList<>();
+        ResultSet rs = execQuerySQL("SELECT * FROM PRODUCT");
+
+        while (rs.next()) {
+            String name = rs.getString("name");
+            int price = rs.getInt("price");
+            products.add(new Product(name, price));
+        }
+        rs.close();
+        return products;
     }
 
     public ResultSet execQuerySQL(String sql) {

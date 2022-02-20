@@ -2,11 +2,12 @@ package ru.akirakozov.sd.refactoring.servlet;
 
 import ru.akirakozov.sd.refactoring.HTMLBuilder;
 import ru.akirakozov.sd.refactoring.Model;
+import ru.akirakozov.sd.refactoring.Product;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.ResultSet;
+import java.util.List;
 
 /**
  * @author akirakozov
@@ -17,19 +18,16 @@ public class GetProductsServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) {
         try {
-            ResultSet rs = model.getProducts();
+            List<Product> products = model.getProducts();
             HTMLBuilder.buildHeader(response);
 
-            while (rs.next()) {
-                String name = rs.getString("name");
-                int price = rs.getInt("price");
-                HTMLBuilder.addLine(response, name + "\t" + price);
+            for (Product pr : products) {
+                HTMLBuilder.addLine(response, pr.getName() + "\t" + pr.getPrice());
             }
-            HTMLBuilder.buildFooter(response);
 
-            rs.close();
+            HTMLBuilder.buildFooter(response);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
