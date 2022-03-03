@@ -33,7 +33,7 @@ class CalcVisitor : TokenVisitor {
             OperationType.SUB -> a - b
             OperationType.MUL -> a * b
             OperationType.DIV -> if (b != 0) a / b
-                                 else throw RuntimeException("jajajaja division by zero (kek). Check your expression!")
+            else throw RuntimeException("jajajaja division by zero (kek). Check your expression!")
         }
 
         values.addFirst(res)
