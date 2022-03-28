@@ -11,8 +11,8 @@ import io.ktor.http.*
 import java.net.http.HttpConnectTimeoutException
 import java.time.Instant
 
-open class VKClient(val token: String) {
-    val httpClient = HttpClient(CIO) {
+open class VKClient(private val token: String) {
+    private val httpClient = HttpClient(CIO) {
         expectSuccess = false
 
         install(HttpTimeout) {
