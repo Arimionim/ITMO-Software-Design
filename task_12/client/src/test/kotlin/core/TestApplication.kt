@@ -1,7 +1,9 @@
+package core
+
+import appModule
 import org.koin.core.context.startKoin
 import org.koin.dsl.bind
 import org.koin.dsl.module
-import appModule
 import provider.ServerProvider
 
 object TestApplication {

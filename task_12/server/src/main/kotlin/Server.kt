@@ -1,12 +1,10 @@
-import io.ktor.application.call
-import io.ktor.http.HttpStatusCode
-import io.ktor.request.receiveParameters
-import io.ktor.response.respond
-import io.ktor.routing.get
-import io.ktor.routing.post
-import io.ktor.routing.routing
-import io.ktor.server.engine.embeddedServer
-import io.ktor.server.netty.Netty
+import io.ktor.http.*
+import io.ktor.server.application.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import kotlinx.coroutines.runBlocking
 
 fun main() {
@@ -34,11 +32,13 @@ fun main() {
                 val stock = StockStorage.getStock(ticker)
                     ?: return@get call.respond(HttpStatusCode.NotFound, "No such stock.")
 
-                call.respond("""
+                call.respond(
+                    """
                     $$ticker: ${stock.companyName}
                     Available: ${stock.quantity}
                     Price per stock: ${stock.price}
-                """.trimIndent())
+                """.trimIndent()
+                )
             }
 
             post("/stock/{ticker}/order") {

@@ -1,9 +1,8 @@
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.CIO
-import io.ktor.client.request.forms.submitForm
-import io.ktor.client.request.get
-import io.ktor.http.Parameters
-
+import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.request.*
+import io.ktor.client.request.forms.*
+import io.ktor.http.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import provider.ServerProvider

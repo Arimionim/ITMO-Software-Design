@@ -1,3 +1,5 @@
+package core
+
 import org.koin.core.component.KoinComponent
 import provider.ServerProvider
 

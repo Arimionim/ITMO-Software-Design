@@ -1,16 +1,12 @@
-import io.ktor.client.request.forms.submitForm
-import io.ktor.client.request.get
-import io.ktor.http.Parameters
+import core.BaseTest
+import core.TestApplication
+import io.ktor.client.request.*
+import io.ktor.client.request.forms.*
+import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import StockClient
-import UserStock
-import UserStockView
-import UserStorage
 import provider.ServerProvider
-import BaseTest
-import TestApplication
 import kotlin.test.assertEquals
 
 class StockClientTest : BaseTest() {

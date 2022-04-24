@@ -1,6 +1,8 @@
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.CIO
-import io.ktor.client.features.logging.Logging
+package core
+
+import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.features.logging.*
 import org.junit.jupiter.api.BeforeEach
 import org.slf4j.LoggerFactory
 import org.testcontainers.containers.output.Slf4jLogConsumer
